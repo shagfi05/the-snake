@@ -70,6 +70,8 @@ class Apple(GameObject):
 
 
 class Snake(GameObject):
+    """Класс змейки — главного игрового персонажа."""
+
     def __init__(self, body_color=COLORS['snake']):
         super().__init__(body_color=body_color)
 
@@ -84,12 +86,14 @@ class Snake(GameObject):
         self.last = None
 
     def draw(self, surface):
+        """Отрисовывает все сегменты змейки на поверхности."""
         for segment in self.positions:
             rect = pg.Rect(segment, (GRID_SIZE, GRID_SIZE))
             pg.draw.rect(surface, self.body_color, rect)
-            # pg.draw.rect(surface, COLORS['border'], rect, 1)
 
     def get_head_position(self):
+        """Возвращает координаты головы змейки (первого элемента списка позиций)."""
+
         return self.positions[0]
 
     def check_collision(self):
@@ -108,6 +112,7 @@ class Snake(GameObject):
         return False
 
     def update_direction(self):
+        """Обновляет направление движения змейки."""
         if self.next_direction is not None:
             if not (
                 (self.direction == RIGHT and self.next_direction == LEFT)
@@ -119,6 +124,7 @@ class Snake(GameObject):
             self.next_direction = None
 
     def move(self):
+        """Сдвигает змейку на одну клетку в текущем направлении."""
         head_x, head_y = self.positions[0]
         dx, dy = self.direction
         new_head = (head_x + dx, head_y + dy)
