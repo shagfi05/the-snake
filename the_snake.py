@@ -1,5 +1,6 @@
 import random
 import pygame as pg
+
 # ТОЛЬКО для прохождения тестов
 pg.init()
 screen = pg.Surface((1, 1))
@@ -50,13 +51,9 @@ class Apple(GameObject):
 
     def randomize_position(self, occupied_positions=None):
         """Генерация случайной позиции, не занятой змейкой."""
-        while True:
-            self.position = (
-                random.randint(0, GRID_WIDTH - 1) * GRID_SIZE,
-                random.randint(0, GRID_HEIGHT - 1) * GRID_SIZE
-            )
-            if occupied_positions is None or self.position not in occupied_positions:
-                break
+        x = random.randrange(0, GRID_WIDTH) * GRID_SIZE
+        y = random.randrange(0, GRID_HEIGHT) * GRID_SIZE
+        self.position = (x, y)
 
     def draw(self, surface):
         """Отрисовка яблока."""
@@ -135,10 +132,12 @@ class Snake(GameObject):
         self.position = self.positions[0]
 
     def grow(self):
+        """Увеличивает длину змейки (добавляет сегмент)."""
         self.positions.append(self.positions[-1])
         self.position = self.positions[0]
 
     def reset(self):
+        """Сбрасывает состояние змейки или игры к начальному."""
         start_x = ((SCREEN_WIDTH // 2) // GRID_SIZE) * GRID_SIZE
         start_y = ((SCREEN_HEIGHT // 2) // GRID_SIZE) * GRID_SIZE
 
@@ -150,6 +149,7 @@ class Snake(GameObject):
 
 
 def snake_eats_apple(snake, apple):
+    """Проверяет, съела ли змейка яблоко, и обрабатывает этот случай."""
     # Snake.position — это (x, y) головы
     head_x, head_y = snake.position
 
