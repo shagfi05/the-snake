@@ -95,11 +95,9 @@ class Snake(GameObject):
 
     def check_collision(self):
         """Проверяет столкновения: со стенами и с собственным хвостом."""
-        head_x, head_y = self.positions[0]
-        
+        head_x, head_y = self.positions[0]       
         if not (0 <= head_x < SCREEN_WIDTH and 0 <= head_y < SCREEN_HEIGHT):
-            return True
-        
+            return True        
         for segment in self.positions[1:]:
             if segment == (head_x, head_y):
                 return True
