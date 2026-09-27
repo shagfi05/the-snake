@@ -218,7 +218,7 @@ def main():
         pg.display.flip()
 
         clock.tick(8)
-        
+
     pg.quit()
 
 
