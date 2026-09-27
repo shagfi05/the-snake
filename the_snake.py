@@ -204,8 +204,10 @@ def main():
     apple = Apple()
 
     running = True
-    while running:
+    while True:
         running = handle_keys(snake)
+        if not running:
+            break
 
         snake.update_direction()
         update_game_state(snake, apple)
@@ -214,9 +216,10 @@ def main():
         snake.draw(screen)
         apple.draw(screen)
         pg.display.flip()
+
         clock.tick(8)
+        
     pg.quit()
 
-
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()
