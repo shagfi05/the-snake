@@ -1,12 +1,12 @@
 import random
 import pygame as pg
-#ТОЛЬКО для прохождения тестов
+# ТОЛЬКО для прохождения тестов
 pg.init()
 screen = pg.Surface((1, 1))
 clock = pg.time.Clock()
 
 
-#Константы
+# Константы
 GRID_SIZE = 20
 GRID_WIDTH = 32
 GRID_HEIGHT = 24
@@ -32,13 +32,14 @@ class GameObject:
 
     def __init__(self, body_color=None):
         self.body_color = body_color
-        self.position = None  
+        self.position = None
 
     def draw(self, surface):
         """Отрисовка объекта."""
         raise NotImplementedError(
             f'Метод draw() не реализован для класса {type(self).__name__}'
         )
+
 
 class Apple(GameObject):
     """Класс для яблока."""
@@ -67,6 +68,7 @@ class Apple(GameObject):
         )
         pg.draw.rect(surface, self.body_color, rect)
 
+
 class Snake(GameObject):
     def __init__(self, body_color=COLORS['snake']):
         super().__init__(body_color=body_color)
@@ -85,7 +87,7 @@ class Snake(GameObject):
         for segment in self.positions:
             rect = pg.Rect(segment, (GRID_SIZE, GRID_SIZE))
             pg.draw.rect(surface, self.body_color, rect)
-            #pg.draw.rect(surface, COLORS['border'], rect, 1)
+            # pg.draw.rect(surface, COLORS['border'], rect, 1)
 
     def get_head_position(self):
         return self.positions[0]
@@ -94,11 +96,11 @@ class Snake(GameObject):
         """Проверяет столкновения: со стенами и с собственным хвостом."""
         head_x, head_y = self.positions[0]
 
-        #Столкновение со стенами
+        # Столкновение со стенами
         if not (0 <= head_x < SCREEN_WIDTH and 0 <= head_y < SCREEN_HEIGHT):
             return True
 
-        #Столкновение с собственным хвостом (проверяем все сегменты, кроме головы)
+        # Столкновение с собственным хвостом (проверяем все сегменты, кроме головы)
         for segment in self.positions[1:]:
             if segment == (head_x, head_y):
                 return True
@@ -108,10 +110,10 @@ class Snake(GameObject):
     def update_direction(self):
         if self.next_direction is not None:
             if not (
-                (self.direction == RIGHT and self.next_direction == LEFT) or
-                (self.direction == LEFT and self.next_direction == RIGHT) or
-                (self.direction == UP and self.next_direction == DOWN) or
-                (self.direction == DOWN and self.next_direction == UP)
+                (self.direction == RIGHT and self.next_direction == LEFT)
+                or (self.direction == LEFT and self.next_direction == RIGHT)
+                or (self.direction == UP and self.next_direction == DOWN)
+                or (self.direction == DOWN and self.next_direction == UP)
             ):
                 self.direction = self.next_direction
             self.next_direction = None
@@ -142,16 +144,16 @@ class Snake(GameObject):
 
 
 def snake_eats_apple(snake, apple):
-    #Snake.position — это (x, y) головы
+    # Snake.position — это (x, y) головы
     head_x, head_y = snake.position
-    
-    #Создаём Rect для головы: (x, y, ширина, высота)
+
+    # Создаём Rect для головы: (x, y, ширина, высота)
     head_rect = pg.Rect(head_x, head_y, GRID_SIZE, GRID_SIZE)
-    
-    #Apple.position — тоже (x, y), делаем аналогично
+
+    # Apple.position — тоже (x, y), делаем аналогично
     apple_x, apple_y = apple.position
     apple_rect = pg.Rect(apple_x, apple_y, GRID_SIZE, GRID_SIZE)
-    
+
     return head_rect.colliderect(apple_rect)
 
 
@@ -174,7 +176,7 @@ def update_game_state(snake, apple):
 def main():
     """Основная функция игры."""
     global screen, clock
-    
+
     pg.display.set_caption('Изгиб Питона')
     screen = pg.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
     clock = pg.time.Clock()
@@ -206,6 +208,7 @@ def main():
         pg.display.flip()
         clock.tick(8)
     pg.quit()
+
 
 if __name__ == '__main__':
     main()
