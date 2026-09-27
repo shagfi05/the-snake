@@ -1,4 +1,5 @@
 import random
+
 import pygame as pg
 
 # ТОЛЬКО для прохождения тестов
@@ -89,19 +90,16 @@ class Snake(GameObject):
             pg.draw.rect(surface, self.body_color, rect)
 
     def get_head_position(self):
-        """Возвращает координаты головы змейки (первого элемента списка позиций)."""
-
+        """Возвращает координаты головы змейки."""
         return self.positions[0]
 
     def check_collision(self):
         """Проверяет столкновения: со стенами и с собственным хвостом."""
         head_x, head_y = self.positions[0]
-
-        # Столкновение со стенами
+        
         if not (0 <= head_x < SCREEN_WIDTH and 0 <= head_y < SCREEN_HEIGHT):
             return True
-
-        # Столкновение с собственным хвостом (проверяем все сегменты, кроме головы)
+        
         for segment in self.positions[1:]:
             if segment == (head_x, head_y):
                 return True
