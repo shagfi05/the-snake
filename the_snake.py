@@ -143,12 +143,12 @@ class Snake(GameObject):
         self.next_direction = None
         self.last = None
 
+
 def handle_keys(snake):
     """Обрабатывает нажатия клавиш. Возвращает False, если нужно выйти."""
     for event in pg.event.get():
         if event.type == pg.QUIT:
             return False
-        
         if event.type == pg.KEYDOWN:
             if event.key == pg.K_UP and snake.direction != 'DOWN':
                 snake.direction = 'UP'
@@ -159,6 +159,7 @@ def handle_keys(snake):
             elif event.key == pg.K_RIGHT and snake.direction != 'LEFT':
                 snake.direction = 'RIGHT'
     return True
+
 
 def snake_eats_apple(snake, apple):
     """Проверяет, съела ли змейка яблоко, и обрабатывает этот случай."""
