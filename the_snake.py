@@ -6,7 +6,7 @@ screen = pg.Surface((1, 1))
 clock = pg.time.Clock()
 
 
-# Константы
+#Константы
 GRID_SIZE = 20
 GRID_WIDTH = 32
 GRID_HEIGHT = 24
@@ -94,11 +94,11 @@ class Snake(GameObject):
         """Проверяет столкновения: со стенами и с собственным хвостом."""
         head_x, head_y = self.positions[0]
 
-        # Столкновение со стенами
+        #Столкновение со стенами
         if not (0 <= head_x < SCREEN_WIDTH and 0 <= head_y < SCREEN_HEIGHT):
             return True
 
-        # Столкновение с собственным хвостом (проверяем все сегменты, кроме головы)
+        #Столкновение с собственным хвостом (проверяем все сегменты, кроме головы)
         for segment in self.positions[1:]:
             if segment == (head_x, head_y):
                 return True
@@ -142,13 +142,13 @@ class Snake(GameObject):
 
 
 def snake_eats_apple(snake, apple):
-    # snake.position — это (x, y) головы
+    #Snake.position — это (x, y) головы
     head_x, head_y = snake.position
     
-    # Создаём Rect для головы: (x, y, ширина, высота)
+    #Создаём Rect для головы: (x, y, ширина, высота)
     head_rect = pg.Rect(head_x, head_y, GRID_SIZE, GRID_SIZE)
     
-    # apple.position — тоже (x, y), делаем аналогично
+    #Apple.position — тоже (x, y), делаем аналогично
     apple_x, apple_y = apple.position
     apple_rect = pg.Rect(apple_x, apple_y, GRID_SIZE, GRID_SIZE)
     
