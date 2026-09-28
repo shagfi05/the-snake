@@ -1,11 +1,11 @@
 import random
 
-import pygame as pg
+import pygame
 
 # ТОЛЬКО для прохождения тестов
-pg.init()
-screen = pg.Surface((1, 1))
-clock = pg.time.Clock()
+
+screen = pygame.Surface((1, 1))
+clock = pygame.time.Clock()
 
 
 # Константы
@@ -58,13 +58,13 @@ class Apple(GameObject):
 
     def draw(self, surface):
         """Отрисовка яблока."""
-        rect = pg.Rect(
+        rect = pygame.Rect(
             self.position[0],
             self.position[1],
             GRID_SIZE,
             GRID_SIZE
         )
-        pg.draw.rect(surface, self.body_color, rect)
+        pygame.draw.rect(surface, self.body_color, rect)
 
 
 class Snake(GameObject):
@@ -86,8 +86,8 @@ class Snake(GameObject):
     def draw(self, surface):
         """Отрисовывает все сегменты змейки на поверхности."""
         for segment in self.positions:
-            rect = pg.Rect(segment, (GRID_SIZE, GRID_SIZE))
-            pg.draw.rect(surface, self.body_color, rect)
+            rect = pygame.Rect(segment, (GRID_SIZE, GRID_SIZE))
+            pygame.draw.rect(surface, self.body_color, rect)
 
     def get_head_position(self):
         """Возвращает координаты головы змейки."""
@@ -146,17 +146,17 @@ class Snake(GameObject):
 
 def handle_keys(snake):
     """Обрабатывает нажатия клавиш. Возвращает False, если нужно выйти."""
-    for event in pg.event.get():
-        if event.type == pg.QUIT:
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
             return False
-        if event.type == pg.KEYDOWN:
-            if event.key == pg.K_UP and snake.direction != 'DOWN':
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_UP and snake.direction != 'DOWN':
                 snake.direction = 'UP'
-            elif event.key == pg.K_DOWN and snake.direction != 'UP':
+            elif event.key == pygame.K_DOWN and snake.direction != 'UP':
                 snake.direction = 'DOWN'
-            elif event.key == pg.K_LEFT and snake.direction != 'RIGHT':
+            elif event.key == pygame.K_LEFT and snake.direction != 'RIGHT':
                 snake.direction = 'LEFT'
-            elif event.key == pg.K_RIGHT and snake.direction != 'LEFT':
+            elif event.key == pygame.K_RIGHT and snake.direction != 'LEFT':
                 snake.direction = 'RIGHT'
     return True
 
@@ -167,11 +167,11 @@ def snake_eats_apple(snake, apple):
     head_x, head_y = snake.position
 
     # Создаём Rect для головы: (x, y, ширина, высота)
-    head_rect = pg.Rect(head_x, head_y, GRID_SIZE, GRID_SIZE)
+    head_rect = pygame.Rect(head_x, head_y, GRID_SIZE, GRID_SIZE)
 
     # Apple.position — тоже (x, y), делаем аналогично
     apple_x, apple_y = apple.position
-    apple_rect = pg.Rect(apple_x, apple_y, GRID_SIZE, GRID_SIZE)
+    apple_rect = pygame.Rect(apple_x, apple_y, GRID_SIZE, GRID_SIZE)
 
     return head_rect.colliderect(apple_rect)
 
@@ -194,11 +194,11 @@ def update_game_state(snake, apple):
 
 def main():
     """Основная функция игры."""
-    global screen, clock
+    pygame.init()
 
-    pg.display.set_caption('Изгиб Питона')
-    screen = pg.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
-    clock = pg.time.Clock()
+    pygame.display.set_caption('Изгиб Питона')
+    screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+    clock = pygame.time.Clock()
 
     snake = Snake()
     apple = Apple()
@@ -215,11 +215,11 @@ def main():
         screen.fill(COLORS['background'])
         snake.draw(screen)
         apple.draw(screen)
-        pg.display.flip()
+        pygame.display.flip()
 
         clock.tick(8)
 
-    pg.quit()
+    pygame.quit()
 
 
 if __name__ == '__main__':
