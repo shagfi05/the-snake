@@ -3,7 +3,6 @@ import random
 import pygame
 
 # ТОЛЬКО для прохождения тестов
-
 screen = pygame.Surface((1, 1))
 clock = pygame.time.Clock()
 
