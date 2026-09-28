@@ -205,7 +205,6 @@ def main():
     running = True
     while True:
         running = handle_keys(snake)
-        
         if not running:
             break
 
