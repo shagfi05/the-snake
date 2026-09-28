@@ -205,7 +205,7 @@ def main():
     running = True
     while True:
         running = handle_keys(snake)
-        print(f'Результат handle_keys: {running}')
+        
         if not running:
             break
 
