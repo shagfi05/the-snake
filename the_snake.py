@@ -117,7 +117,7 @@ class Snake(GameObject):
 
     def move(self):
         """Сдвигает змейку на одну клетку в текущем направлении."""
-        head_x, head_y = self.positions[0]
+        head_x, head_y = self.positions[0]        
         dx, dy = self.direction
         new_head = (head_x + dx, head_y + dy)
 
@@ -150,13 +150,13 @@ def handle_keys(snake):
             return False
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_UP and snake.direction != 'DOWN':
-                snake.direction = 'UP'
+                snake.direction = UP
             elif event.key == pygame.K_DOWN and snake.direction != 'UP':
-                snake.direction = 'DOWN'
+                snake.direction = DOWN
             elif event.key == pygame.K_LEFT and snake.direction != 'RIGHT':
-                snake.direction = 'LEFT'
+                snake.direction = LEFT
             elif event.key == pygame.K_RIGHT and snake.direction != 'LEFT':
-                snake.direction = 'RIGHT'
+                snake.direction = RIGHT
     return True
 
 
@@ -204,8 +204,11 @@ def main():
     # Цикл while TRUE
     running = True
     while True:
+        print("--- ЦИКЛ НАЧАЛСЯ ---")
         running = handle_keys(snake)
+        print(f"Результат handle_keys: {running}")
         if not running:
+            print("ПОЛУЧЕН СИГНАЛ ВЫХОДА. ЦИКЛ ПРЕРЫВАЕТСЯ.")
             break
 
         snake.update_direction()
