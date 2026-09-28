@@ -202,7 +202,7 @@ def main():
 
     snake = Snake()
     apple = Apple()
-
+    # Цикл while TRUE
     running = True
     while True:
         running = handle_keys(snake)
