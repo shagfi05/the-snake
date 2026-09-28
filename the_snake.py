@@ -117,7 +117,7 @@ class Snake(GameObject):
 
     def move(self):
         """Сдвигает змейку на одну клетку в текущем направлении."""
-        head_x, head_y = self.positions[0]        
+        head_x, head_y = self.positions[0]
         dx, dy = self.direction
         new_head = (head_x + dx, head_y + dy)
 
@@ -204,11 +204,9 @@ def main():
     # Цикл while TRUE
     running = True
     while True:
-        print("--- ЦИКЛ НАЧАЛСЯ ---")
         running = handle_keys(snake)
-        print(f"Результат handle_keys: {running}")
+        print(f'Результат handle_keys: {running}')
         if not running:
-            print("ПОЛУЧЕН СИГНАЛ ВЫХОДА. ЦИКЛ ПРЕРЫВАЕТСЯ.")
             break
 
         snake.update_direction()
